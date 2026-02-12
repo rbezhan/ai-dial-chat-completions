@@ -28,8 +28,8 @@ class DialClient(BaseClient):
         )
         if choices := response.get('choices'):
             if message := choices[0].get('message'):
-                print(message['content'])
-                return Message(role=Role.ASSISTANT, content=message['content'])
+                print(message.content)
+                return Message(Role.AI, message.content)
         
         raise Exception("No choices in response found")
         #TODO:
@@ -56,7 +56,7 @@ class DialClient(BaseClient):
                     print(delta.content, end='')
                     contents.append(delta.content)
         print()
-        return Message(role=Role.ASSISTANT, content=''.join(contents))  
+        return Message(Role.AI, ''.join(contents)) 
 
         #TODO:
         # 1. Create chat completions with client (async_client.chat.completions.create) with such params:
